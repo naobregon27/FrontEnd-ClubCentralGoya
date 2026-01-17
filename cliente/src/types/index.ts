@@ -10,6 +10,7 @@ export interface Socio {
   estadoCuota: 'alDia' | 'vencida' | 'pendiente';
   beneficios: string[];
   qrCode?: string;
+  carnetImagen?: string;
 }
 
 export interface Noticia {
