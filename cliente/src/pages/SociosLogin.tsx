@@ -3,8 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { User, Lock } from 'lucide-react';
 import { useAppDispatch } from '@/store/hooks';
-import { login } from '@/store/slices/sociosSlice';
-import { Socio } from '@/types';
+import { login, setCuotas } from '@/store/slices/sociosSlice';
+import { Socio, CuotaSocial } from '@/types';
 
 const SociosLogin = () => {
   const navigate = useNavigate();
@@ -14,19 +14,80 @@ const SociosLogin = () => {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    // Simulación de login - en producción esto sería una llamada a la API
-    const socioMock: Socio = {
-      id: '1',
-      nombre: 'Juan',
-      apellido: 'Pérez',
-      email: email,
-      numeroSocio: '1234',
-      fechaIngreso: '2020-01-15',
-      estadoCuota: 'alDia',
-      beneficios: ['Descuento en indumentaria', 'Acceso prioritario'],
-    };
-    dispatch(login(socioMock));
-    navigate('/socios/dashboard');
+    
+    // Validación de credenciales hardcodeadas para el prototipo
+    if (email === 'central@goya.com' && password === 'Mateo123!') {
+      // Datos mock del socio
+      const socioMock: Socio = {
+        id: '1',
+        nombre: 'Mateo',
+        apellido: 'González',
+        email: email,
+        numeroSocio: '2024',
+        fechaIngreso: '2020-01-15',
+        estadoCuota: 'alDia',
+        beneficios: ['Descuento en indumentaria', 'Acceso prioritario', 'Entrada gratuita a partidos'],
+        carnetImagen: '/central-goya-de-corrientes-logo-png_seeklogo-330475 (1).png', // Imagen temporal del carnet
+      };
+      
+      // Cuotas mock del socio
+      const cuotasMock: CuotaSocial[] = [
+        {
+          id: '1',
+          mes: 'Enero',
+          año: 2024,
+          monto: 5000,
+          fechaVencimiento: '2024-01-10',
+          estado: 'pagada',
+          metodoPago: 'Transferencia',
+          fechaPago: '2024-01-05',
+        },
+        {
+          id: '2',
+          mes: 'Febrero',
+          año: 2024,
+          monto: 5000,
+          fechaVencimiento: '2024-02-10',
+          estado: 'pagada',
+          metodoPago: 'Transferencia',
+          fechaPago: '2024-02-08',
+        },
+        {
+          id: '3',
+          mes: 'Marzo',
+          año: 2024,
+          monto: 5000,
+          fechaVencimiento: '2024-03-10',
+          estado: 'pagada',
+          metodoPago: 'Efectivo',
+          fechaPago: '2024-03-09',
+        },
+        {
+          id: '4',
+          mes: 'Abril',
+          año: 2024,
+          monto: 5000,
+          fechaVencimiento: '2024-04-10',
+          estado: 'pagada',
+          metodoPago: 'Transferencia',
+          fechaPago: '2024-04-07',
+        },
+        {
+          id: '5',
+          mes: 'Mayo',
+          año: 2024,
+          monto: 5000,
+          fechaVencimiento: '2024-05-10',
+          estado: 'vencida',
+        },
+      ];
+      
+      dispatch(login(socioMock));
+      dispatch(setCuotas(cuotasMock));
+      navigate('/socios/dashboard');
+    } else {
+      alert('Credenciales incorrectas. Usa: central@goya.com / Mateo123!');
+    }
   };
 
   return (

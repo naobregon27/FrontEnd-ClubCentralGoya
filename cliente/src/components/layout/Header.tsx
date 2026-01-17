@@ -157,7 +157,11 @@ const Header = () => {
 
             <Link
               to={isAuthenticated ? '/socios/dashboard' : '/socios/login'}
-              className="hidden md:flex items-center space-x-2 px-4 py-2 bg-club-gray-800 hover:bg-club-gray-700 text-club-white rounded-lg transition-all duration-300"
+              className={`hidden md:flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-300 ${
+                isAuthenticated
+                  ? 'bg-gradient-to-r from-club-gold-500 to-club-gold-600 text-club-black font-bold hover:shadow-[0_4px_15px_rgba(245,158,11,0.4)]'
+                  : 'bg-club-gray-800 hover:bg-club-gray-700 text-club-white'
+              }`}
             >
               <User className="w-5 h-5" />
               <span>{isAuthenticated ? 'Mi Cuenta' : 'Socios'}</span>
